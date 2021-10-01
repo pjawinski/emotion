@@ -1,0 +1,11 @@
+measure	strategy_F	strategy_dfn	strategy_dfd	strategy_p	strategy_eta2
+ER_valence	156.332	1	188	1.69e-26	0.454
+ER_arousal	414.271	1	188	2.06e-49	0.688
+Corru	18.465	1	188	2.77e-05	0.089
+HP	11.966	1	188	0.00067	0.06
+SCR	3.428	1	185	0.066	0.018
+Wins_ER_valence	179.903	1	188	3.23e-29	0.489
+Wins_ER_arousal	650.59	1	188	5.97e-63	0.776
+Wins_Corru	50.51	1	188	2.39e-11	0.212
+Wins_HP	12.282	1	188	0.000572	0.061
+Wins_SCR	5.511	1	185	0.02	0.029

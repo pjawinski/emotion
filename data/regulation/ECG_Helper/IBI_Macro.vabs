@@ -1,0 +1,162 @@
+Const FilePosition = CurrentWorkspace.ExportFileFolder
+Dim mks As Markers
+Dim nhn As New NewHistoryNode
+Dim RPosition1, RPosition2, SPosition, EPosition As Long
+Dim OutfileName As String
+Dim OutfileNum As Long
+Dim n1, n2 As Integer
+Dim Sum, Mean, StdDev, Mean_NoOutliers, StdDev_NoOutliers, ms As Single
+Dim Trial, Outlier As Integer
+Dim TrialType As String
+
+Sub Main
+		nhn.Create "IBI", ActiveNode
+	 	Set mks = ActiveNode.Dataset.Markers
+	 	ms = ActiveNode.Dataset.SamplingInterval/1000
+
+'Mean
+		 	  n1 = 0
+		 	  Sum = 0
+		      For i = 1 To mks.Count - 1
+		        If mks(i).Type = "Pulse Artifact" Then
+		           RPosition1 = mks(i).Position
+		           For j = i+1 To mks.Count
+		          	 If mks(j).Type = "Pulse Artifact" Then
+					   RPosition2 = mks(j).Position
+					   n1 = n1+1
+					   Sum = Sum + (RPosition2 - RPosition1)
+					 Exit For
+		          	 End If
+		           Next
+ 			    End If
+			  Next
+			  Mean = Sum/n1
+
+'StdDev
+			  SumSq = 0
+              For i = 1 To mks.Count - 1
+		        If mks(i).Type = "Pulse Artifact" Then
+		           RPosition1 = mks(i).Position
+		           For j = i+1 To mks.Count
+		          	 If mks(j).Type = "Pulse Artifact" Then
+					   RPosition2 = mks(j).Position
+					   SumSq = SumSq + ((RPosition2 - RPosition1) - Mean)^2
+					   Exit For
+		          	 End If
+		           Next
+ 			    End If
+			  Next
+              StdDev = Sqr(SumSq/(n1-1))
+
+'Mean without outliers
+              n2 = 0
+			  Sum = 0
+		      For i = 1 To mks.Count - 1
+		        If mks(i).Type = "Pulse Artifact" Then
+		           RPosition1 = mks(i).Position
+		           For j = i+1 To mks.Count
+		          	 If mks(j).Type = "Pulse Artifact" Then
+					   RPosition2 = mks(j).Position
+					   If RPosition2 - RPosition1 < Mean+2.58*StdDev And RPosition2 - RPosition1 > Mean-2.58*StdDev Then
+					   n2 = n2+1
+					   Sum = Sum + (RPosition2 - RPosition1)
+					   End If
+					   Exit For
+		          	 End If
+		           Next
+ 			    End If
+			  Next
+			  Mean_NoOutliers = Sum/n2
+
+'StdDev without outliers
+			  SumSq = 0
+              For i = 1 To mks.Count - 1
+		        If mks(i).Type = "Pulse Artifact" Then
+		           RPosition1 = mks(i).Position
+		           For j = i+1 To mks.Count
+		          	 If mks(j).Type = "Pulse Artifact" Then
+					   RPosition2 = mks(j).Position
+					   If RPosition2 - RPosition1 < Mean+2.58*StdDev And RPosition2 - RPosition1 > Mean-2.58*StdDev Then
+					   SumSq = SumSq + ((RPosition2 - RPosition1) - Mean)^2
+					   End If
+					   Exit For
+		          	 End If
+		           Next
+ 			    End If
+			  Next
+              StdDev_NoOutliers = Sqr(SumSq/(n2-1))
+
+'Output
+	 	OutfileNum = FreeFile
+		OutfileName = FilePosition & "\" & ActiveNode.HistoryFile.DisplayName & "_IBI.txt"
+		Open OutfileName For Output As OutfileNum
+        Print #OutfileNum, ActiveNode.HistoryFile.DisplayName & vbCrLf & "BeatCount Mean SD BeatCountNoOutliers MeanNoOutliers SDNoOutliers" & vbCrLf & n1 & " " & Mean*ms & " " & StdDev*ms & " " & n2 & " " & Mean_NoOutliers*ms & " " & StdDev_NoOutliers*ms & vbCrLf & vbCrLf & "Trial TrialStatus Trialtype IBI AbsPosition RelPosition Outlier"
+
+              Trial = 0
+		      For i = 1 To mks.Count - 1
+		        If mks(i).Type = "Pulse Artifact" Then
+		           For j = i+1 To mks.Count
+		          	 If mks(j).Type = "Pulse Artifact" Then
+		          	   		RPosition1 = mks(i).Position
+		          	        RPosition2 = mks(j).Position
+		          	        RenameMarkerDescription mks(j), nhn, CStr((RPosition2 - RPosition1)*ms)
+                            If RPosition2 - RPosition1 < Mean+2.58*StdDev And RPosition2 - RPosition1 > Mean-2.58*StdDev Then
+		          	          Outlier = 0
+		          	        Else
+		          	          Outlier = 1
+    				        End If
+
+		          	   For k = j+1 To mks.Count
+		          	   	 If mks(k).Description = "S102" Or mks(k).Description = "S112" Or mks(k).Description = "S106" Or mks(k).Description = "S116" Then
+		          	   	    TrialType = mks(k).Description
+		          	        If SPosition <> mks(k).Position Then
+		          	        Trial = Trial+1
+		          	        End If
+				            SPosition = mks(k).Position
+                            If (SPosition - RPosition2)*ms > 2000 Then
+						      Print #OutfileNum, "0 0 0 " & (RPosition2 - RPosition1)*ms & " " & RPosition2*ms & " " & (RPosition2 - SPosition)*ms & " " & Outlier
+						    Else
+						      Print #OutfileNum, Trial & " 1 " & TrialType & " " & (RPosition2 - RPosition1)*ms & " " & RPosition2*ms & " " & (RPosition2 - SPosition)*ms & " " & Outlier
+						    End If
+							Exit For
+		          	     ElseIf mks(k).Description = "S 55" Then
+		          	        EPosition = mks(k).Position
+                            Print #OutfileNum, Trial & " 2 " & TrialType & " " & (RPosition2 - RPosition1)*ms & " " & RPosition2*ms & " " & (RPosition2 - SPosition)*ms & " " & Outlier
+				            Exit For
+                         End If
+                         Next
+
+		          	   Exit For
+		             End If
+		             Next
+		         End If
+		         Next
+         Close OutfileNum
+         nhn.Description = BuildParamString
+         nhn.Finish
+End Sub
+
+Sub RenameMarkerDescription(mks As Marker, nhn As NewHistoryNode, NewDescription As String)
+	nhn.RemoveMarker mks.ChannelNumber, mks.Position, mks.Points, mks.Type, mks.Description
+	nhn.AddMarker mks.ChannelNumber, mks.Position, mks.Points, mks.Type, NewDescription
+End Sub
+
+
+Function BuildParamString As String
+	Dim nhnString As String
+	nhnString = "*** " & "(c) 2016 Philippe Jawinski University of Leipzig " & vbCrLf
+	nhnString = nhnString & "----------------------------------------------------------------------------------------------------------------" & vbCrLf
+	nhnString = nhnString & vbCrLf
+	nhnString = nhnString & "Result file saved to:           " & OutfileName & vbCrLf
+	nhnString = nhnString & vbCrLf
+    nhnString = nhnString & "Whole Data Analysis" & vbCrLf
+	nhnString = nhnString & "Beat Count:                     " & n1 & vbCrLf
+	nhnString = nhnString & "Mean IBI:                       " & Mean*ms & vbCrLf
+	nhnString = nhnString & "SD IBI:                         " & StdDev*ms & vbCrLf
+	nhnString = nhnString & vbCrLf
+    nhnString = nhnString & "Without Outliers (Mean ± 2,58 SD)" & vbCrLf
+	nhnString = nhnString & "Beat Count:                     " & n2 & vbCrLf
+	nhnString = nhnString & "Mean IBI:                       " & Mean_NoOutliers*ms & vbCrLf
+	nhnString = nhnString & "SD IBI:                         " & StdDev_NoOutliers*ms
+	BuildParamString = nhnString
+End Function
