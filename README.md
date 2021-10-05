@@ -19,7 +19,7 @@ You may then wish to change the specified working directory in each analysis scr
 You are now ready to run all scripts located in [code/](code/) according to their numbering one after another. R scripts can be run from command line or from within RStudio. The R environment is activated by the scripts and required packages are downloaded automatically. If you do not have an SPSS license, you may wish to skip the respective SPSS script and continue with the next R script. Our repository comes along with all files derived from the scripts, so that you can basically start at wherever you wish.
 
 ## Folder structure
-[code/](code/) - contains all analysis scripts as well as the derived files ([derivatives](code/derivatives)), [tables](code/tables) and [figures](code/figures)<br>
+[code/](code/) - contains all analysis scripts as well as their associated [derivatives](code/derivatives), [tables](code/tables) and [figures](code/figures)<br>
 [data/](data/) - contains raw data or imported data files from completed projects on which the current analyses are based.<br>
 [renv/](renv/) - contains a single file to initiate the R environment (the scripts located in code/ refer to this file)<br>
 [renv.lock](renv.lock) - a list of R packages automatically downloaded and attached to the activated R environment<br>
