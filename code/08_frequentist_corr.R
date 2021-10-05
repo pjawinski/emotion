@@ -173,8 +173,8 @@ png(width = 4.61, height = 2.57, units = "in", res = 600, filename = 'code/figur
 
 # draw plotly as interactive html
 # change height and width of plotly like this: results$plotly = results$plotly %>% layout(height = 800, width = 1200)
-saveWidget(results$plotly, 'code/figures/corr_regulate.html', selfcontained = TRUE); system('rm -rf code/figures/corr_regulate_files')
-saveWidget(results$plotly, 'code/figures/corr_regulate_neg.html', selfcontained = TRUE); system('rm -rf code/figures/corr_regulate_neg_files')
+saveWidget(ERsucc$plotly, 'code/figures/corr_regulate.html', selfcontained = TRUE); system('rm -rf code/figures/corr_regulate_files')
+saveWidget(ERsucc_neg$plotly, 'code/figures/corr_regulate_neg.html', selfcontained = TRUE); system('rm -rf code/figures/corr_regulate_neg_files')
 
 # --------------------------------------------------------------------------
 # --- Correlations ER success & ER success (negative) x inhibition (IES) ---
