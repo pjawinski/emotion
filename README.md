@@ -8,9 +8,9 @@ Keywords: emotion regulation; reappraisal; inhibitory control; cognitive control
 
 ## Folder structure
 [code/](code/) - contains all analysis scripts as well as their associated [derivatives](code/derivatives), [tables](code/tables) and [figures](code/figures)<br>
-[data/](data/) - contains raw data or imported data files from completed projects on which the current analyses are based.<br>
+[data/](data/) - contains raw data or imported data files from completed projects on which the current analyses are based<br>
 [renv/](renv/) - contains a single file to initiate the R environment (the scripts located in code/ refer to this file)<br>
-[renv.lock](renv.lock) - a list of R packages automatically downloaded and attached to the activated R environment<br>
+[renv.lock](renv.lock) - a list of R packages automatically downloaded and attached to the R environment of this project<br>
 [setwd.sh](setwd.sh) - a script to automatically set the working directory in all analysis scripts<br>
 
 ## How to use this repository
@@ -27,4 +27,4 @@ You are now ready to run all scripts located in [code/](code/) according to thei
 
 ## Teaser
 ![alt text](https://pjawinski.github.io/emotion/code/figures/boxplots.png "Figure 1")
-**Figure 1.** Boxplots stratified by emotion regulation measure (valence ratings, arousal ratings, corrugator EMG, heart period, and skin conductance response SCR) and task conditions (top row), as well as analyzed effects (bottom row). Valence and arousal scores range from -4 ('highly pleasant'/'not at all aroused') to 4 ('highly unpleasant'/'very aroused'). Corrugator and heart period delta represent the difference of trial to baseline measures. Boxes represent the interquartile range (observations between the lower and upper quartile of the ascending distribution), with the solid horizontal line in the box corresponding to the median. Whiskers extend to the furthest observation within 1.5 times the interquartile range from the lower and upper quartile. Dots represent single observations, jittered horizontally to avoid overplotting.
+**Figure 1.** Boxplots stratified by emotion regulation measure (valence ratings, arousal ratings, corrugator EMG, heart period, and skin conductance response SCR) and task conditions (top row), as well as examined effects (bottom row). Valence and arousal scores range from -4 ('highly pleasant'/'not at all aroused') to 4 ('highly unpleasant'/'very aroused'). Corrugator and heart period delta represent the difference between trial and baseline measures. Boxes represent the interquartile range (observations between the lower and upper quartile of the ascending distribution), with the solid horizontal line in the box corresponding to the median. Whiskers extend to the furthest observation within 1.5 times the interquartile range from the lower and upper quartile. Dots represent single observations, jittered horizontally to avoid overplotting.
