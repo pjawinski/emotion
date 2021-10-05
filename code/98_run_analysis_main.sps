@@ -1,7 +1,7 @@
 ﻿* Encoding: UTF-8.
 
 * Set working directory.
-cd '/users/philippe/desktop/projects/emotion'.
+cd '/Users/philippe/Desktop/projects/emotion'.
 
 * get dataset.
 GET FILE='code/derivatives/main.sav'.

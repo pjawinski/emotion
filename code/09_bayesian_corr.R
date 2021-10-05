@@ -3,7 +3,7 @@
 # ==============================================================
 
 # set working directory
-setwd('/users/philippe/desktop/projects/emotion')
+setwd('/Users/philippe/Desktop/projects/emotion')
 
 # activate R environment
 source("renv/activate.R")
