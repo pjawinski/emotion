@@ -59,7 +59,6 @@ for (i in measure) {
 # write.table
 write.table(data.frame(measure = rownames(results), results), 'code/tables/anova_ERsucc.txt', sep = '\t', row.names = F, quote = F)
 
-
 # -------------------------------------------------
 # --- ER success (negative) - strategy rm-ANOVA ---
 # -------------------------------------------------
@@ -69,7 +68,6 @@ df = read.delim('code/derivatives/main_winsor_longlist.txt', sep = '\t', header 
 
 # create list of variables
 measure = c('ER_valence', 'ER_arousal', 'Corru', 'HP', 'SCR', 'Wins_ER_valence', 'Wins_ER_arousal', 'Wins_Corru', 'Wins_HP', 'Wins_SCR')
-vars = paste0(i, c('_neg_permit', '_neg_distancing'))
 
 for (i in measure) {
   
