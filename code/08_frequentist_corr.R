@@ -6,7 +6,8 @@
 setwd('/Users/philippe/Desktop/projects/emotion')
 
 # activate R environment
-renv::activate()
+if (exists('.rs.restartR', mode = 'function')) { .rs.restartR() }
+source('renv/activate.R')
 renv::restore(prompt = FALSE)
 
 # attach packages to current R session
