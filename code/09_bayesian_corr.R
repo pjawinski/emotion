@@ -71,10 +71,7 @@ BF = as.vector(unlist(output[seq(3,ncol(output),2)]))
 sum(BF > 1 & BF < 3)/length(BF)
 sum(BF > 3 & BF < 10)/length(BF)
 median(BF)
-
 sum(BF > 10)/length(BF)
-
-max(BF)
 
 # save results
 write.table(output, file = 'code/tables/corr_regulate_inhibit_ies_bayes.txt', quote = FALSE, row.names = F, sep = '\t')
