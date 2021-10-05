@@ -56,8 +56,8 @@ for (i in 1:length(rowvars)) {
     temp = df[,c(rowvars[i],colvars[j])]
     temp = temp[complete.cases(temp),]
     bfmodel = correlationBF(rank(temp[1]), rank(temp[2]), rscale = 'medium')
-    #samples = posterior(bfmodel, iterations = 1000000)
-    #output[i,paste0(colvars[j],'.rho')] = mean(samples[,"rho"])
+    samples = posterior(bfmodel, iterations = 1000000)
+    output[i,paste0(colvars[j],'.rho')] = mean(samples[,"rho"])
     output[i,paste0(colvars[j],'.BF')] = extractBF(bfmodel)$bf
   }
 }
