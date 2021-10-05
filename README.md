@@ -19,11 +19,11 @@ In order to reproduce our statistical analyses, you should first clone this repo
 git clone https://github.com/pjawinski/emotion.git
 cd emotion
 ```
-You may then wish to change the specified working directory in each analysis script via the following command:
+You may then update the specified working directory in each analysis script via the following command:
 ```
 ./setwd.sh
 ```
-You are now ready to run all scripts located in [code/](code/) according to their numbering one after another. R scripts can be run from command line or from within RStudio. The R environment is activated by the scripts and required packages are downloaded automatically. If you do not have an SPSS license, you may wish to skip the respective SPSS script and continue with the next R script. Our repository comes along with all files derived from the scripts, so that you can basically start at wherever you wish.
+You are now ready to run all scripts located in [code/](code/) according to their numbering one after another. R scripts can be run from command line or from within RStudio. The R environment is activated by the scripts and required packages are downloaded automatically. If you do not have an SPSS license, you may skip the respective SPSS script and continue with the next R script. Our repository comes along with all files derived from the scripts, so that you can basically start from wherever you wish.
 
 ## Teaser
 ![alt text](https://pjawinski.github.io/emotion/code/figures/boxplots.png "Figure 1")
