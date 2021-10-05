@@ -6,6 +6,13 @@ Although cognitive control and emotional control have been proposed to rely on s
 
 Keywords: emotion regulation; reappraisal; inhibitory control; cognitive control; peripheral physiology<br>
 
+## Folder structure
+[code/](code/) - contains all analysis scripts as well as their associated [derivatives](code/derivatives), [tables](code/tables) and [figures](code/figures)<br>
+[data/](data/) - contains raw data or imported data files from completed projects on which the current analyses are based.<br>
+[renv/](renv/) - contains a single file to initiate the R environment (the scripts located in code/ refer to this file)<br>
+[renv.lock](renv.lock) - a list of R packages automatically downloaded and attached to the activated R environment<br>
+[setwd.sh](setwd.sh) - a script to automatically set the working directory in all analysis scripts<br>
+
 ## How to use this repository
 In order to reproduce our statistical analyses, you should first clone this repository via the the following commands:
 ```
@@ -17,13 +24,6 @@ You may then wish to change the specified working directory in each analysis scr
 ./setwd.sh
 ```
 You are now ready to run all scripts located in [code/](code/) according to their numbering one after another. R scripts can be run from command line or from within RStudio. The R environment is activated by the scripts and required packages are downloaded automatically. If you do not have an SPSS license, you may wish to skip the respective SPSS script and continue with the next R script. Our repository comes along with all files derived from the scripts, so that you can basically start at wherever you wish.
-
-## Folder structure
-[code/](code/) - contains all analysis scripts as well as their associated [derivatives](code/derivatives), [tables](code/tables) and [figures](code/figures)<br>
-[data/](data/) - contains raw data or imported data files from completed projects on which the current analyses are based.<br>
-[renv/](renv/) - contains a single file to initiate the R environment (the scripts located in code/ refer to this file)<br>
-[renv.lock](renv.lock) - a list of R packages automatically downloaded and attached to the activated R environment<br>
-[setwd.sh](setwd.sh) - a script to automatically set the working directory in all analysis scripts<br>
 
 ## Teaser
 ![alt text](https://pjawinski.github.io/emotion/code/figures/boxplots.png "Figure 1")
