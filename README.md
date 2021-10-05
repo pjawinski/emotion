@@ -9,7 +9,7 @@ Keywords: emotion regulation; reappraisal; inhibitory control; cognitive control
 ## Folder structure
 [code/](code/) - contains all analysis scripts as well as their associated [derivatives](code/derivatives), [tables](code/tables) and [figures](code/figures)<br>
 [data/](data/) - contains raw data or imported data files from completed projects on which the current analyses are based<br>
-[renv/](renv/) - contains a single file to initiate the R environment (the scripts located in code/ refer to this file)<br>
+[renv/](renv/) - contains a single file to initiate the R environment (the scripts located in [code/](code/) refer to this file)<br>
 [renv.lock](renv.lock) - a list of R packages automatically downloaded and attached to the R environment of this project<br>
 [setwd.sh](setwd.sh) - a script to automatically set the working directory in all analysis scripts<br>
 
