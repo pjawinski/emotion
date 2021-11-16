@@ -1,5 +1,5 @@
 ### Variable description for main.txt
-
+<pre>
 id - Participant identifier
 sex - Sex (male: 0, female: 1)
 age - Age
@@ -86,4 +86,4 @@ ERsucc_neu_valence - Emotion regulation success based on valence ratings (neutra
 ERsucc_neu_corru - Emotion regulation success based on change in corrugator EMG activity (neutral trials only)
 ERsucc_neu_hp - Emotion regulation success based on change in heart periods (neutral trials only)
 ERsucc_neu_scr - Emotion regulation success based on change in skin conductance response (neutral trials only)
-
+</pre>
