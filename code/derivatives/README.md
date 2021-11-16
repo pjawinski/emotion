@@ -1,4 +1,4 @@
-### Variable description for main.txt
+### Variable description for [main.txt](main.txt) 
 <pre>
 id - Participant identifier
 sex - Sex (male: 0, female: 1)
