@@ -2,7 +2,7 @@
 <pre>
 id - Participant identifier
 sex - Sex (male: 0, female: 1)
-age - Age
+age - Age (years)
 ER_Filename - Name of emotion regulation log file
 ER_FileDateTime - Timestamp of emotion regulation log file
 ER_FileDate - Date of emotion regulation log file
