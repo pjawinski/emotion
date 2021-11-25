@@ -38,7 +38,7 @@ vars = as.data.frame(matrix(c(
   'ERsucc_corru', 'Corrugator | ER success',
   'ERsucc_scr', 'SCR | ER success',
   'ERsucc_hp', 'Heart period | ER success',
-  'ERQ_reap', 'ERQ reappraisel',
+  'ERQ_reap', 'ERQ reappraisal',
   'ERQ_supp', 'ERQ suppression',
   'Inhibit_ies_antisaccade', 'IES Antisaccade',
   'Inhibit_stopsignal', 'Stop-signal',
@@ -79,6 +79,61 @@ sum(BF > 1 & BF < 3)/length(BF)
 sum(BF > 3 & BF < 10)/length(BF)
 median(BF)
 sum(BF > 10)/length(BF)
+
+# Bayes factor robustness checks (mainly for Supplement)
+
+# range of prior scales from extremely narrow to ultrawide
+priorScale = seq(.01, 1, by = .01)
+
+# global plot parameters
+par(mfrow = c(3, 4), mar = c(4, 4, 4, 2))
+
+# calculate and plot Bayes factors 
+BF10 = NULL
+for (i in 1:length(rowvars)) {
+  # empty plot
+  plot(range(ps), c(.09,10.5), type = "n", xlab = "Prior Scale", ylab = "BF10", log="y", yaxt="n", main = vars[i, 2])
+  axis(2, at = c(.10,1/3,1,3,10), c("1/10","1/3","1","3", "10"), las = 1)
+  abline(h = c(.10, 1 / 3, 1, 3, 10), lty = c(3, 3, 1, 3, 3))
+  abline(v = 1 / 3, col = 2)
+  
+  for (j in 1:length(colvars)) {
+    # variables to correlate
+    message(paste0('\n', i, '.', j, ' - ', rowvars[i]), ' X ', colvars[j])
+    temp = df[, c(rowvars[i], colvars[j])]
+    temp = temp[complete.cases(temp), ]
+    
+    # get range of BF10s depending on prior scale
+    bf10 = NULL
+    for (k in 1:length(ps)) {
+      bf10 = c(bf10, as.vector(correlationBF(rank(temp[, 1]), rank(temp[, 2]), rscale = priorScale[k])))
+    }
+    # add to BF10
+    BF10=rbind(BF10, bf10)
+    
+    # add line to plot
+    lines(ps, 1/bf10, col = grey(j/10), lwd = 1.5)
+    
+    # add legend to first plot
+    if (i == 1) {
+      legend('bottomright', inset = .025, lwd = 1.5, col = grey((1:7) / 10), vars[13:19, 2], cex = .7)
+    }
+  }
+}
+
+# reset par
+par(mfrow=c(1,1),mar=c(5,4,4,2))
+
+# proportion of BF01 in robustness check at different thresholds 
+# (used in main text)
+BF01 = 1/BF10
+propsBF10 = c(sum(BF01 >= 1/3 & BF01 < 1)/length(BF01),
+              sum(BF01 >=   1 & BF01 < 3)/length(BF01),
+              sum(BF01 >=   3 & BF01 < 10)/length(BF01),
+              sum(BF01 >=  10)/length(BF01))
+sum(propsBF10)
+round(propsBF10*100)
+median(BF01)
 
 # save results
 write.table(output, file = 'code/tables/corr_regulate_inhibit_ies_bayes.txt', quote = FALSE, row.names = F, sep = '\t')
