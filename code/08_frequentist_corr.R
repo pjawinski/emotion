@@ -183,6 +183,23 @@ png(width = 4.61, height = 2.57, units = "in", res = 600, filename = 'code/figur
 saveWidget(ERsucc$plotly, 'code/figures/corr_regulate.html', selfcontained = TRUE); system('rm -rf code/figures/corr_regulate_files')
 saveWidget(ERsucc_neg$plotly, 'code/figures/corr_regulate_neg.html', selfcontained = TRUE); system('rm -rf code/figures/corr_regulate_neg_files')
 
+# make output table ERsucc
+results = ERsucc
+output = as.data.frame(matrix(NA, nrow = nrow(results$rho), ncol = nrow(results$rho)*2+1))
+colnames(output) = c('id', apply(expand.grid( c('rho', 'p'),results$rho$id)[c(2,1)], 1, paste, collapse="."))
+output$id = results$rho$id
+output[seq(2,ncol(output)-1,2)] = results$rho[,-1]
+output[seq(3,ncol(output)-0,2)] = results$pval[,-1]
+write.table(output, 'code/tables/corr_regulate.txt', sep = '\t', row.names = F, quote = F)
+
+results = ERsucc_neg
+output = as.data.frame(matrix(NA, nrow = nrow(results$rho), ncol = nrow(results$rho)*2+1))
+colnames(output) = c('id', apply(expand.grid( c('rho', 'p'),results$rho$id)[c(2,1)], 1, paste, collapse="."))
+output$id = results$rho$id
+output[seq(2,ncol(output)-1,2)] = results$rho[,-1]
+output[seq(3,ncol(output)-0,2)] = results$pval[,-1]
+write.table(output, 'code/tables/corr_regulate_neg.txt', sep = '\t', row.names = F, quote = F)
+
 # --------------------------------------------------------------------------
 # --- Correlations ER success & ER success (negative) x inhibition (IES) ---
 # --------------------------------------------------------------------------
