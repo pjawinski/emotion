@@ -14,7 +14,7 @@ Keywords: emotion regulation; reappraisal; inhibitory control; cognitive control
 [setwd.sh](setwd.sh) - a script to automatically set the working directory in all analysis scripts<br>
 
 ## How to use this repository
-In order to reproduce our statistical analyses, you should first create and navigate to the folder where you want the data be stored and the analyses run and clone this repository via the following commands (to be entered in command line):
+In order to reproduce our statistical analyses, you should first navigate to the folder where you want the data be stored (avoid spaces in path) and clone this repository via the following commands (to be entered in command line):
 ```
 cd '/Users/MyProjectFolder'
 git clone https://github.com/pjawinski/emotion.git
